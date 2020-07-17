@@ -24,5 +24,5 @@ int cantor(int a[], int n)
 		}
 		s += x * m;
 	}
-	return s;
+	return s+1;
 }
