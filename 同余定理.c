@@ -16,4 +16,5 @@ int main(void)
         printf("%d与%d对模%d同余！\n", a, b, m);
     else
         printf("%d与%d对模%d不同余！\n", a, b, m);
+    return 0;
 }
