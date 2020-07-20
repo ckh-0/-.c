@@ -1,0 +1,28 @@
+/* 高次方求模
+   思路：对于n^p mod m,当p的值很大时，直接求解是不可能的，可以利用如下公式(a*a)%b=(a%b * a%b)%b有了这个公式，
+   求解问题就简单了。
+   实现方法(快速幂)：1.指数二进制 例：3^5可以看成3^(101)
+                     2.指数右移   例：3^(101)->9^(10)
+			         3.位权(遇到0，1乘以底数；遇到1，底数平方)       例：9^(10)->9^(1)->81   结果：1*3*81=243
+			         4.一边乘一边取模
+*/
+#include<stdio.h>
+unsigned long long binpow(unsigned long long n, unsigned long long p, unsigned long long m) {
+    unsigned long long prod = 1;
+	while (p > 0)
+	{
+		if (p&1)
+			prod = prod * n % m;
+		n = n * n % m;
+		p>>=1;
+	}
+	return prod;
+}
+int main() {
+	unsigned long long n, p, m, s;
+	printf("Input n,p,m:\n");
+	scanf("%llu %llu %llu", &n, &p, &m);
+	s = binpow(n, p, m);
+	printf("%llu", s);
+	return 0;
+}
