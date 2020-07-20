@@ -1,0 +1,17 @@
+#include<stdio.h>
+unsigned long long binpow(unsigned long long n, unsigned long long p, unsigned long long m) {
+	if (p == 0) 
+		return 1;
+	unsigned long long prod = binpow(n, p >> 1, m);
+	if (p & 1) 
+		return prod * prod % m * n % m;   //当指数为奇数时，2^n%m==2^n/2*2^n/2%m*2%m
+	return prod * prod % m;             //当指数为偶数时，2^n%m=2^n/2*2^n/2%m
+}
+int main() {
+	unsigned long long n, p, m, s;
+	printf("Input n,p,m:\n");
+	scanf("%llu %llu %llu", &n, &p, &m);
+	s = binpow(n, p, m);
+	printf("%llu", s);
+	return 0;
+}
