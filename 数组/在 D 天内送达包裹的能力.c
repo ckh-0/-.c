@@ -14,10 +14,8 @@
            第 5 天：10
            请注意，货物必须按照给定的顺序装运，因此使用载重能力为 14 的船舶并将包装分成 (2, 3, 4, 5), (1, 6, 7), 
            (8), (9), (10) 是不允许的。
-    思路：首先先假设一个船舶的最低载重是总质量s/天数D，记为m，首先判断找到weight[i]是否有大于m的数字，如果有，就
-          令m等于它。将s重新置为0，然后在一个for循环里，s累加weights[i]，若s==m，天数计数器d++，s置为0；若s>m，
-          计数器d++，s置为0，i--(因为此时由于多加了一个数字，超出了船舶的最大容纳量，故需要减一)；最好还要有一个
-          if (d > D||(d==D&&i<weightsSize-1))，判断是否超出规定天数。
+    思路：首先判断找到weight[i]中最大的数字，记为m，然后在一个for循环里，s累加weights[i]，若s==m，天数计数器d++，s置为0；若s>m，计数器d++，s置为0，
+          i--(因为此时由于多加了一个数字，超出了船舶的最大容纳量，故需要减一)；最后还要有一个if (d > D||(d==D&&i<weightsSize-1)) ，判断是否超出规定天数。
     总结：这道题就是在提交时遇到了点麻烦，在编译器通过的好好的，但在leetcode提交时，显示结果与预期有差别，后来改进
           了一下算法，终于是通过了。
 */
@@ -25,13 +23,10 @@
 int shipWithinDays(int* weights, int weightsSize, int D) {
     int i, s, d;
     s = d = 0;
-    for (i = 0; i < weightsSize; i++)
-        s += weights[i];
-    int m = s / D;
-    for (i = 0; i < weightsSize; i++)
+    int m = weights[0];
+    for (i = 1; i < weightsSize; i++)
         if (weights[i] > m)
             m = weights[i];
-    s = 0;
     for (i = 0; i < weightsSize; i++) {
         s += weights[i];
         if (s == m)
